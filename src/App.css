@@ -1,0 +1,53 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+
+table {
+  table-layout: fixed;
+  border-spacing: 8px;
+}
+
+table, td {
+  border: 1px solid #333;
+}
+
+.week-no-cell {
+  width: 80px;
+}
+
+tbody .week-no-cell:hover {
+  border-color: #EEE;
+  cursor: pointer;
+}
+
+.weekday-cell {
+  border-color: #242;
+}
+
+.weekend-cell {
+  border-color: #422;
+}
+
+.week-even .weekday-cell {
+  border-width: 2px;
+  border-color: #262;
+}
+
+.week-even .weekend-cell {
+  border-width: 2px;
+  border-color: #622;
+}
+
+tbody .weekend-cell:hover, tbody .weekday-cell:hover {
+  border-color: #EEE;
+  cursor: pointer;
+}
+
+.other-parent-cell {
+  background-color: #888;
+}
