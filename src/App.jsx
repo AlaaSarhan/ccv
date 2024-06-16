@@ -15,7 +15,7 @@ const flipPattern = (pattern) => {
 
 function App() {
   const [otherParentDays, setOtherParentDays] = useState([
-    [], [], [], [], [], [], [], [],
+    [], [], [], [], [], [], [], [], [], [], [], [],
   ]);
 
   useEffect(() => {
