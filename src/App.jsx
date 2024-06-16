@@ -14,13 +14,38 @@ const flipPattern = (pattern) => {
 }
 
 function App() {
-  const [otherParentDays, setOtherParentDays] = useState([
-    [], [], [], [], [], [], [], [], [], [], [], [],
-  ]);
+  const [otherParentDays, setOtherParentDays] = useState(
+    JSON.parse(localStorage.getItem('otherParentDays')) || [ [], [], [], [], [], [], [], [], [], [], [], [] ]
+  );
 
   useEffect(() => {
-    console.log("saving pattern");
+    const storedOtherParentDays = JSON.parse(localStorage.getItem('otherParentDays'));
+    
+    if (storedOtherParentDays) {
+      setOtherParentDays(storedOtherParentDays);
+      console.log('loaded');
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('otherParentDays', JSON.stringify(otherParentDays));
+    console.log('saved');
   }, [otherParentDays]);
+
+  const reset = useCallback(() => {
+    const nrOfWeeks = Number(window.prompt("How many weeks?", 12));
+
+    if (isNaN(nrOfWeeks)) {
+      return;
+    }
+
+    const newOtherParentsDays = []
+    for (let i = 0; i < nrOfWeeks; i++) {
+      newOtherParentsDays[i] = [];
+    }
+
+    setOtherParentDays(newOtherParentsDays);
+  }, []);
 
   const toggleDay = useCallback((weekIdx, dayIdx) => {
     const newOtherParentsDays = [...otherParentDays];
@@ -30,7 +55,7 @@ function App() {
   }, [otherParentDays]);
 
   const repeatPattern = useCallback((weekIdx) => {
-    const answer = window.prompt(`Repeat pattern of weeks before ${weekIdx + 1}, same or flip?`, 'same');
+    const answer = window.prompt(`Repeat pattern of weeks 1 until ${weekIdx + 1}, same or flip?`, 'same');
 
     if (!answer) {
       return;
@@ -38,7 +63,7 @@ function App() {
 
     const flip = answer == 'flip'
 
-    const pattern = otherParentDays.slice(0, weekIdx);
+    const pattern = otherParentDays.slice(0, weekIdx + 1);
     const next = flip ? flipPattern(pattern) : [...pattern];
 
     setOtherParentDays([
@@ -50,8 +75,17 @@ function App() {
 
   }, [otherParentDays])
 
+  const totalShare = otherParentDays.length * 7.0;
+  const otherParentShare = (otherParentDays.reduce((sum, week) => sum + week.filter(Boolean).length, 0) / totalShare);
+  const parentShare = 1 - otherParentShare;
+
   return (
     <>
+      <div>
+        <center>
+          <button onClick={reset}>Reset</button>
+        </center>
+      </div>
       <div>
         <h2>Weeks view</h2>
         <table width="100%">
@@ -83,13 +117,15 @@ function App() {
           </tbody>
         </table>
       </div>
-      <div>
-        <h2>Contiguous days view</h2>
+     <div>
+        <h2>Stats</h2>
 
-      </div>
-      <div>
-        <h2>stats</h2>
-
+        <div>
+          <h3>Time share</h3>
+          <p>First parent time share: {Math.round(parentShare * 100)}%</p>
+          <p>Second parent time share: {Math.round(otherParentShare * 100)}%</p>
+        </div>
+        
       </div>
     </>
   )
