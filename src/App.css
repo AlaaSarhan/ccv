@@ -1,6 +1,9 @@
+body {
+  background-color: #242424;
+}
+
 #root {
   max-width: 1280px;
-  margin: 0 auto;
   padding: 2rem;
   text-align: center;
   width: 100%;
@@ -14,6 +17,7 @@ table {
 
 table, td {
   border: 1px solid #333;
+  text-align: center;
 }
 
 .week-no-cell {
@@ -48,6 +52,43 @@ tbody .weekend-cell:hover, tbody .weekday-cell:hover {
   cursor: pointer;
 }
 
-.other-parent-cell {
-  background-color: #888;
+.weekday-cell.other-parent-cell-1 {
+  background: #676;
+}
+
+.weekend-cell.other-parent-cell-1 {
+  background: #766;
+}
+
+.weekday-cell.other-parent-cell-0\.5 {
+  background: linear-gradient(to bottom right, #676 50%, transparent 0%)
+}
+
+.weekend-cell.other-parent-cell-0\.5 {
+  background: linear-gradient(to bottom right, #766 50%, transparent 0%)
+}
+
+
+.cp {
+
+}
+
+.cp-value {
+  display: flex;
+  flex-direction: column;
+}
+
+.cp-value input {
+  text-align: center;
+  width: 500px;
+  padding: 8px;
+  font-size: 12pt;
+}
+
+.cp-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px;
 }
