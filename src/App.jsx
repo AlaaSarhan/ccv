@@ -54,7 +54,7 @@ function App() {
     const value = JSON.parse(window.prompt("Enter json value you have copied/saved.", '[ [], [], [], [] ]'));
 
     if (!value) {
-      window.alert('Invalid value');
+      console.log('Invalid value');
       return;
     }
 
